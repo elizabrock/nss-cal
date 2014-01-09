@@ -1,4 +1,7 @@
 class Month
+  attr_reader :year
+
+  STANDARD_MONTH_WIDTH = 20
   MONTH_NAMES = { 1 => "January",
                   2 => "February",
                   3 => "March",
@@ -19,5 +22,9 @@ class Month
 
   def name
     MONTH_NAMES[@month]
+  end
+
+  def to_s
+    "#{name} #{year}".center(STANDARD_MONTH_WIDTH).rstrip
   end
 end

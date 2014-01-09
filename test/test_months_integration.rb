@@ -2,6 +2,11 @@ require "minitest/autorun"
 
 class TestMoreMonths < MiniTest::Unit::TestCase
 
+  def test_02_1900_first_line
+    output = `ruby cal.rb 02 1900`
+    assert_equal `cal 02 1900`.split("\n")[0], output.split("\n")[0]
+  end
+
   def test_12_1799
     output = `ruby cal.rb 12 1799`
     assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
