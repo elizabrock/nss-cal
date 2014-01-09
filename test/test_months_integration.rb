@@ -7,8 +7,8 @@ class TestMoreMonths < MiniTest::Unit::TestCase
     assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
   end
 
-  def test_01_3000
-    output = `ruby cal.rb 01 3000`
+  def test_01_3001
+    output = `ruby cal.rb 01 3001`
     assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
   end
 
