@@ -14,7 +14,7 @@ class TestMoreMonths < MiniTest::Unit::TestCase
 
   def test_no_arguments
     output = `ruby cal.rb`
-    assert_equal "You must provide a month and/or year", output
+    assert_equal "You must provide a month and/or year\n", output
   end
 
   def test_02_2012
