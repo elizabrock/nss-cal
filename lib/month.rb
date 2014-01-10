@@ -47,9 +47,11 @@ class Month
 
     extra_spaces = ZellersCongruence.calculate(year.to_i, month) - 1
     days = ("   " * extra_spaces)
+
     1.upto(self.length) do |day_of_month|
-      days << ( day_of_month.to_s.rjust(2, " ") + " ")
+      days << (day_of_month.to_s + " ").rjust(3, " ")
     end
+
     day_characters = days.split(//)
     STANDARD_MONTH_HEIGHT.times do
       lines << day_characters.shift(STANDARD_MONTH_WIDTH + 1).join("").rstrip
