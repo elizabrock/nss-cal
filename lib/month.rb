@@ -6,7 +6,7 @@ class Month
   attr_reader :year
 
   STANDARD_MONTH_WIDTH = 20
-  STANDARD_MONTH_HEIGHT = 7
+  STANDARD_MONTH_HEIGHT = 6
 
   MONTH_NAMES = { 1 => "January",
                   2 => "February",
@@ -42,7 +42,7 @@ class Month
   end
 
   def to_s
-    lines = ["#{name}".center(STANDARD_MONTH_WIDTH).rstrip,
+    lines = ["#{name} #{year}".center(STANDARD_MONTH_WIDTH).rstrip,
              "Su Mo Tu We Th Fr Sa"]
 
     extra_spaces = ZellersCongruence.calculate(year, month) - 1
@@ -54,9 +54,8 @@ class Month
 
     day_characters = days.split(//)
     STANDARD_MONTH_HEIGHT.times do
-      week = day_characters.shift(STANDARD_MONTH_WIDTH + 1).join("").rstrip
-      lines << (week.empty? ? " " : week)
+      lines << day_characters.shift(STANDARD_MONTH_WIDTH + 1).join("").rstrip
     end
-    lines.join("\n")
+    lines.map{|line| line.rstrip + "\n"}.join
   end
 end
