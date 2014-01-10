@@ -2,7 +2,7 @@
 
 require_relative 'lib/month'
 
-unless ARGV[0] and ARGV[1]
+unless ARGV[0]
   puts "You must provide a month and/or year"
   exit
 end

@@ -1,20 +1,19 @@
 require "minitest/autorun"
 
-class TestMoreYears < MiniTest::Unit::TestCase
-
+class TestYearsIntegration < MiniTest::Unit::TestCase
   def test_1799
     output = `ruby cal.rb 1799`
-    assert_equal "Argument must be for a date between the years 1800 and 3000", output
+    assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
   end
 
   def test_3000
     output = `ruby cal.rb 3000`
-    assert_equal "Argument must be for a date between the years 1800 and 3000", output
+    assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
   end
 
   def test_poor_arguments
     output = `ruby cal.rb 99`
-    assert_equal "You must provide a month and/or year", output
+    assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
   end
 
   def test_2012
