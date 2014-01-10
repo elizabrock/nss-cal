@@ -1,5 +1,8 @@
+require_relative 'month'
+
 class Year
   STANDARD_YEAR_WIDTH = 62
+  STANDARD_MONTH_HEIGHT = 8
 
   def initialize(year)
     @year = year
@@ -26,16 +29,26 @@ class Year
       month2 = Month.new(months[1], @year).to_s.split("\n")
       month3 = Month.new(months[2], @year).to_s.split("\n")
 
+      if month1.length < STANDARD_MONTH_HEIGHT
+        month1 << " "
+      end
+
       full_quarter = month1.zip(month2, month3)
 
-      full_quarter.each do |line|
-        full_line = line.map{ |month_line| (month_line || "").ljust(Month::STANDARD_MONTH_WIDTH) }
-        striped_line = full_line.join("  ").rstrip
-        if !striped_line.empty?
-          lines << striped_line.ljust((2 + Month::STANDARD_MONTH_WIDTH) * 2," ")
+      full_quarter.each do |line_strings|
+        deniled_lines = line_strings.map{ |month_line| (month_line || "") }
+
+        full_lines = deniled_lines.map do |month_line|
+          if month_line =~ /\s*(\w+)\s(\d{4})\s*/
+            "#{$1}".center(Month::STANDARD_MONTH_WIDTH)
+          else
+            month_line.ljust(Month::STANDARD_MONTH_WIDTH)
+          end
         end
+
+        striped_line = full_lines.join("  ").rstrip
+        lines << striped_line.ljust((2 + Month::STANDARD_MONTH_WIDTH) * 2," ")
       end
-      lines << ("  " * (Month::STANDARD_MONTH_WIDTH + 2))
     end
     lines
   end
