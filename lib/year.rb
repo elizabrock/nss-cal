@@ -4,7 +4,11 @@ class Year
   end
 
   def is_leap_year?
-    (@year % 400) == 0 || ( (@year % 4) == 0 && (@year % 100) != 0)
+    if (@year % 4) == 0
+      (@year % 100) != 0 || (@year % 400) == 0
+    else
+      false
+    end
   end
 
   def to_s
