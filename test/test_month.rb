@@ -1,7 +1,7 @@
 require "minitest/autorun"
 require_relative "../lib/month"
 
-class TestMoreMonths < MiniTest::Unit::TestCase
+class TestMonth < MiniTest::Unit::TestCase
   def test_translating_month_january
     assert_equal "January", Month.new(1, 2012).name
   end

@@ -1,10 +1,15 @@
 require "minitest/autorun"
 
-class TestMoreMonths < MiniTest::Unit::TestCase
+class TestMonthsIntegration < MiniTest::Unit::TestCase
 
   def test_02_1900_first_line
     output = `ruby cal.rb 02 1900`
     assert_equal `cal 02 1900`.split("\n")[0], output.split("\n")[0]
+  end
+
+  def test_02_2012_last_line
+    output = `ruby cal.rb 02 2012`
+    assert_equal `cal 02 2012`.split("\n")[5], output.split("\n")[5]
   end
 
   def test_12_1799

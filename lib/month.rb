@@ -6,6 +6,8 @@ class Month
   attr_reader :year
 
   STANDARD_MONTH_WIDTH = 20
+  STANDARD_MONTH_HEIGHT = 7
+
   MONTH_NAMES = { 1 => "January",
                   2 => "February",
                   3 => "March",
@@ -48,9 +50,10 @@ class Month
     1.upto(self.length) do |day_of_month|
       days << ( day_of_month.to_s.rjust(2, " ") + " ")
     end
-    days.scan(/.{1,#{STANDARD_MONTH_WIDTH + 1}}/m) do |line|
-      lines << line.rstrip
+    day_characters = days.split(//)
+    STANDARD_MONTH_HEIGHT.times do
+      lines << day_characters.shift(STANDARD_MONTH_WIDTH + 1).join("").rstrip
     end
-    lines.flatten.join("\n")
+    lines.join("\n")
   end
 end
