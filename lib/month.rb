@@ -1,4 +1,5 @@
 require_relative 'zellers_congruence'
+require_relative 'year'
 
 class Month
   attr_reader :month
@@ -20,11 +21,18 @@ class Month
 
   def initialize(month, year)
     @month = month
-    @year = year
+    @year = Year.new(year)
   end
 
   def length
-    29
+    case month
+    when 4, 6, 9, 11
+      30
+    when 2
+      year.is_leap_year? ? 29 : 28
+    else
+      31
+    end
   end
 
   def name
@@ -35,7 +43,7 @@ class Month
     lines = ["#{name} #{year}".center(STANDARD_MONTH_WIDTH).rstrip,
              "Su Mo Tu We Th Fr Sa"]
 
-    extra_spaces = ZellersCongruence.calculate(year, month) - 1
+    extra_spaces = ZellersCongruence.calculate(year.to_i, month) - 1
     days = ("   " * extra_spaces)
     1.upto(self.length) do |day_of_month|
       days << ( day_of_month.to_s.rjust(2, " ") + " ")

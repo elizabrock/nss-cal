@@ -11,6 +11,10 @@ class Year
     end
   end
 
+  def to_i
+    @year
+  end
+
   def to_s
     @year.to_s
   end
