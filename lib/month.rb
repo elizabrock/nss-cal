@@ -23,7 +23,7 @@ class Month
 
   def initialize(month, year)
     @month = month
-    @year = Year.new(year)
+    @year = year
   end
 
   def length
@@ -31,7 +31,7 @@ class Month
     when 4, 6, 9, 11
       30
     when 2
-      year.is_leap_year? ? 29 : 28
+      Year.is_leap_year?(year) ? 29 : 28
     else
       31
     end
@@ -42,10 +42,10 @@ class Month
   end
 
   def to_s
-    lines = ["#{name} #{year}".center(STANDARD_MONTH_WIDTH).rstrip,
+    lines = ["#{name}".center(STANDARD_MONTH_WIDTH).rstrip,
              "Su Mo Tu We Th Fr Sa"]
 
-    extra_spaces = ZellersCongruence.calculate(year.to_i, month) - 1
+    extra_spaces = ZellersCongruence.calculate(year, month) - 1
     days = ("   " * extra_spaces)
 
     1.upto(self.length) do |day_of_month|
@@ -54,7 +54,8 @@ class Month
 
     day_characters = days.split(//)
     STANDARD_MONTH_HEIGHT.times do
-      lines << day_characters.shift(STANDARD_MONTH_WIDTH + 1).join("").rstrip
+      week = day_characters.shift(STANDARD_MONTH_WIDTH + 1).join("").rstrip
+      lines << (week.empty? ? " " : week)
     end
     lines.join("\n")
   end

@@ -7,13 +7,18 @@ unless ARGV[0]
   exit
 end
 
-month = ARGV[0].to_i
-year = ARGV[1].to_i
+month = ARGV.first.to_i
+year = ARGV.last.to_i
 
 if year < 1800 or year > 3000
   puts "Argument must be for a date between the years 1800 and 3000"
   exit
 end
 
-month = Month.new(month, year)
-puts month.to_s
+if month == year
+  calendar = Year.new(year)
+else
+  calendar = Month.new(month, year)
+end
+
+puts calendar.to_s

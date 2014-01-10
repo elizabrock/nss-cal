@@ -16,6 +16,12 @@ class TestYearsIntegration < MiniTest::Unit::TestCase
     assert_equal "Argument must be for a date between the years 1800 and 3000\n", output
   end
 
+  def test_2015_first_lines
+    output = `ruby cal.rb 2015`
+    n = 17
+    assert_equal `cal 2015`.split("\n")[n], output.split("\n")[n]
+  end
+
   def test_2012
     output = `ruby cal.rb 2012`
     assert_equal `cal 2012`, output
