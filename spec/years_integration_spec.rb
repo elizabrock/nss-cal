@@ -17,31 +17,31 @@ RSpec.describe "Years Integration" do
   it "prints the first lines of 2015 correctly" do
     output = `ruby cal.rb 2015`
     n = 17
-    output.split("\n")[n].should == `cal 2015`.split("\n")[n]
+    output.split("\n")[n].should == `#{cal_command} 2015`.split("\n")[n]
   end
 
   it "matches the output from cal for 2012" do
     output = `ruby cal.rb 2012`
-    output.should == `cal 2012`
+    output.should == `#{cal_command} 2012`
   end
 
   it "matches the output from cal for 3000" do
     output = `ruby cal.rb 3000`
-    output.should == `cal 3000`
+    output.should == `#{cal_command} 3000`
   end
 
   it "matches the output from cal for 1800" do
     output = `ruby cal.rb 1800`
-    output.should == `cal 1800`
+    output.should == `#{cal_command} 1800`
   end
 
   it "matches the output from cal for 2015" do
     output = `ruby cal.rb 2015`
-    output.should == `cal 2015`
+    output.should == `#{cal_command} 2015`
   end
 
   it "matches the output from cal for 1900" do
     output = `ruby cal.rb 1900`
-    output.should == `cal 1900`
+    output.should == `#{cal_command} 1900`
   end
 end

@@ -1,12 +1,12 @@
 RSpec.describe "Months Integration" do
   it "matches the output of cal for 02 1900 first line" do
     output = `ruby cal.rb 02 1900`
-    output.split("\n")[0].should == `cal 02 1900`.split("\n")[0]
+    output.split("\n")[0].should == `#{cal_command} 02 1900`.split("\n")[0]
   end
 
   it "matches the output of cal for 02 2012 last line" do
     output = `ruby cal.rb 02 2012`
-    output.split("\n")[5].should == `cal 02 2012`.split("\n")[5]
+    output.split("\n")[5].should == `#{cal_command} 02 2012`.split("\n")[5]
   end
 
   it "matches the output of cal for 12 1799" do
@@ -26,26 +26,26 @@ RSpec.describe "Months Integration" do
 
   it "matches the output of cal for 02 2012" do
     output = `ruby cal.rb 02 2012`
-    output.should == `cal 02 2012`
+    output.should == `#{cal_command} 02 2012`
   end
 
   it "matches the output of cal for 01 2012" do
     output = `ruby cal.rb 01 2012`
-    output.should == `cal 01 2012`
+    output.should == `#{cal_command} 01 2012`
   end
 
   it "matches the output of cal for 09 2012" do
     output = `ruby cal.rb 09 2012`
-    output.should == `cal 09 2012`
+    output.should == `#{cal_command} 09 2012`
   end
 
   it "matches the output of cal for 02 2015" do
     output = `ruby cal.rb 01 2015`
-    output.should == `cal 01 2015`
+    output.should == `#{cal_command} 01 2015`
   end
 
   it "matches the output of cal for 02 1900" do
     output = `ruby cal.rb 02 1900`
-    output.should == `cal 02 1900`
+    output.should == `#{cal_command} 02 1900`
   end
 end
