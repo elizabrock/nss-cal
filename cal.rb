@@ -21,4 +21,4 @@ else
   calendar = Month.new(month, year)
 end
 
-puts calendar.to_s
+print calendar.to_s

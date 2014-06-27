@@ -1,8 +1,8 @@
 require_relative 'month'
 
 class Year
-  STANDARD_YEAR_WIDTH = 62
-  STANDARD_MONTH_HEIGHT = 8
+  STANDARD_YEAR_WIDTH = 72
+  STANDARD_MONTH_HEIGHT = 11
 
   def initialize(year)
     @year = year
@@ -21,35 +21,50 @@ class Year
   end
 
   def to_s
-    lines = [ @year.to_s.center(STANDARD_YEAR_WIDTH).rstrip,
+    lines = [ "",
+              "",
+              @year.to_s.center(STANDARD_YEAR_WIDTH).rstrip,
               "" ]
-    lines.join("\n")
     (1..12).each_slice(3) do |months|
+      lines << ""
+
       month1 = Month.new(months[0], @year).to_s.split("\n")
       month2 = Month.new(months[1], @year).to_s.split("\n")
       month3 = Month.new(months[2], @year).to_s.split("\n")
 
+      [month1, month2, month3].each do |month|
+        month.delete_if{ |line| line.empty? }
+      end
+
+      # Make sure that the first month is tall enough when we zip the arrays
       if month1.length < STANDARD_MONTH_HEIGHT
-        month1 << " "
+        month1 << nil
       end
 
       full_quarter = month1.zip(month2, month3)
-
       full_quarter.each do |line_strings|
-        deniled_lines = line_strings.map{ |month_line| (month_line || "") }
-
-        full_lines = deniled_lines.map do |month_line|
-          if month_line =~ /\s*(\w+)\s(\d{4})\s*/
-            "#{$1}".center(Month::STANDARD_MONTH_WIDTH)
-          else
-            month_line.ljust(Month::STANDARD_MONTH_WIDTH)
+        if line_strings.all?{ |ostensible_string| ostensible_string.nil? }
+          lines << ""
+        else
+          full_lines = line_strings.map do |month_line|
+            month_title_pattern = /\s*(\w+)\s(\d{4})\s*/
+            if month_line =~ month_title_pattern
+              "#{$1}".center(Month::STANDARD_MONTH_WIDTH - 1) + " "
+            else
+              month_line.ljust(Month::STANDARD_MONTH_WIDTH, " ")
+            end
           end
-        end
 
-        striped_line = full_lines.join("  ").rstrip
-        lines << striped_line.ljust((2 + Month::STANDARD_MONTH_WIDTH) * 2," ")
+          ljust_length = (2 + Month::STANDARD_MONTH_WIDTH) * 2
+          justified_line = full_lines.join("     ").ljust(ljust_length," ")
+          if justified_line.match(/([^\d\s]+\s+)+$/)
+            justified_line.rstrip!
+          end
+
+          lines << justified_line
+        end
       end
     end
-    lines
+    lines.join("\n")
   end
 end

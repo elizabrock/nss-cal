@@ -1,3 +1,3 @@
 def cal_command
-  "cal"
+  "gcal --disable-highlighting"
 end
